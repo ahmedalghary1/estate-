@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstateHub - Buy & Sell Properties</title>
+    <style>
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           CSS RESET & BASE STYLES
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           HEADER & NAVIGATION
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.6rem 1.4rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-lang {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .btn-lang:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           HERO SECTION
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .hero {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(30, 64, 175, 0.95)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e5e7eb" width="1200" height="600"/><path fill="%23d1d5db" d="M0 300L50 283.3C100 266.7 200 233.3 300 216.7C400 200 500 200 600 216.7C700 233.3 800 266.7 900 283.3C1000 300 1100 300 1150 300L1200 300L1200 601L1150 601C1100 601 1000 601 900 601C800 601 700 601 600 601C500 601 400 601 300 601C200 601 100 601 50 601L0 601Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           FILTERS SECTION
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .filters-container {
+            max-width: 1400px;
+            margin: -3rem auto 2rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filters {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: white;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .btn-filter {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-filter:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background-color: var(--text-light);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-reset:hover {
+            background-color: var(--text-dark);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           MAIN CONTENT & PROPERTY GRID
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+        }
+
+        .results-count {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROPERTY CARD
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .property-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            background-color: var(--bg-light);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .property-card:hover .property-image {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .property-badge.rent {
+            background-color: #f59e0b;
+        }
+
+        .property-price {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .property-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .property-location {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .property-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .property-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-contact {
+            flex: 1;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-contact:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           EMPTY STATE
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           MODAL
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .modal-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .user-type-option {
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-type-option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .user-type-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .user-type-option input[type="radio"] {
+            display: none;
+        }
+
+        .user-type-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           FOOTER
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           RTL SUPPORT
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        [dir="rtl"] .property-badge {
+            left: auto;
+            right: 1rem;
+        }
+
+        [dir="rtl"] .property-price {
+            right: auto;
+            left: 1rem;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           RESPONSIVE DESIGN
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-actions {
+                flex-direction: column;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .property-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .user-type-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         HEADER
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <header>
+        <nav>
+            <div class="logo">
+                🏠 <span id="logo-text">EstateHub</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-lang" id="lang-toggle">
+                    <span id="lang-btn-text">العربية</span>
+                </button>
+                <button class="btn btn-secondary" id="login-btn">
+                    <span id="login-text">Login</span>
+                </button>
+                <button class="btn btn-primary" id="add-property-btn">
+                    <span id="add-property-text">+ Add Property</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         HERO SECTION
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="hero">
+        <h1 id="hero-title">Find Your Dream Home</h1>
+        <p id="hero-subtitle">Discover the perfect property from thousands of listings</p>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         FILTERS
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="filters-container">
+        <div class="filters">
+            <div class="filter-group">
+                <label for="filter-type" id="label-type">Property Type</label>
+                <select id="filter-type">
+                    <option value="">All Types</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Land">Land</option>
+                    <option value="Office">Office</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-sale-type" id="label-sale">Sale Type</label>
+                <select id="filter-sale-type">
+                    <option value="">All</option>
+                    <option value="Sale">For Sale</option>
+                    <option value="Rent">For Rent</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-location" id="label-location">Location</label>
+                <select id="filter-location">
+                    <option value="">All Locations</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-min-price" id="label-min-price">Min Price</label>
+                <input type="number" id="filter-min-price" placeholder="0">
+            </div>
+            <div class="filter-group">
+                <label for="filter-max-price" id="label-max-price">Max Price</label>
+                <input type="number" id="filter-max-price" placeholder="Any">
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-filter" id="apply-filters">
+                    <span id="btn-search-text">🔍 Search</span>
+                </button>
+                <button class="btn btn-reset" id="reset-filters">
+                    <span id="btn-reset-text">↻ Reset</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         MAIN CONTENT
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <main>
+        <div class="section-header">
+            <h2 id="section-title">Available Properties</h2>
+            <span class="results-count" id="results-count">0 properties found</span>
+        </div>
+        <div class="properties-grid" id="properties-grid">
+            <!-- Properties will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         LOGIN/REGISTER MODAL
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-auth-title">Login / Register</h2>
+                <button class="modal-close" id="close-auth-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label id="label-user-type">I am a:</label>
+                    <div class="user-type-selector">
+                        <div class="user-type-option" data-type="buyer">
+                            <div class="user-type-icon">🏠</div>
+                            <div><strong id="buyer-text">Buyer</strong></div>
+                            <input type="radio" name="user-type" value="buyer">
+                        </div>
+                        <div class="user-type-option" data-type="seller">
+                            <div class="user-type-icon">💼</div>
+                            <div><strong id="seller-text">Seller</strong></div>
+                            <input type="radio" name="user-type" value="seller">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="auth-name" id="label-name">Name</label>
+                    <input type="text" id="auth-name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="auth-email" id="label-email">Email</label>
+                    <input type="email" id="auth-email" placeholder="Enter your email">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" id="submit-auth">
+                    <span id="submit-auth-text">Continue</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         ADD PROPERTY MODAL
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="modal" id="add-property-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-add-title">Add New Property</h2>
+                <button class="modal-close" id="close-add-modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="prop-title" id="label-prop-title">Property Title</label>
+                    <input type="text" id="prop-title" placeholder="Beautiful apartment in city center">
+                </div>
+                <div class="form-group">
+                    <label for="prop-price" id="label-prop-price">Price</label>
+                    <input type="number" id="prop-price" placeholder="500000">
+                </div>
+                <div class="form-group">
+                    <label for="prop-location" id="label-prop-location">Location</label>
+                    <input type="text" id="prop-location" placeholder="Cairo, Nasr City">
+                </div>
+                <div class="form-group">
+                    <label for="prop-type" id="label-prop-type">Property Type</label>
+                    <select id="prop-type">
+                        <option value="Apartment">Apartment</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Land">Land</option>
+                        <option value="Office">Office</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prop-sale-type" id="label-prop-sale">Sale Type</label>
+                    <select id="prop-sale-type">
+                        <option value="Sale">For Sale</option>
+                        <option value="Rent">For Rent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prop-phone" id="label-prop-phone">Phone Number</label>
+                    <input type="tel" id="prop-phone" placeholder="+20 123 456 7890">
+                </div>
+                <div class="form-group">
+                    <label for="prop-description" id="label-prop-description">Description</label>
+                    <textarea id="prop-description" placeholder="Describe your property..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prop-image" id="label-prop-image">Image URL</label>
+                    <input type="text" id="prop-image" placeholder="https://example.com/image.jpg">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" id="submit-property">
+                    <span id="submit-property-text">Add Property</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         FOOTER
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <footer>
+        <p id="footer-text">© 2025 EstateHub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // TRANSLATIONS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const translations = {
+            en: {
+                logoText: 'EstateHub',
+                langBtnText: 'العربية',
+                loginText: 'Login',
+                addPropertyText: '+ Add Property',
+                heroTitle: 'Find Your Dream Home',
+                heroSubtitle: 'Discover the perfect property from thousands of listings',
+                labelType: 'Property Type',
+                labelSale: 'Sale Type',
+                labelLocation: 'Location',
+                labelMinPrice: 'Min Price',
+                labelMaxPrice: 'Max Price',
+                btnSearchText: '🔍 Search',
+                btnResetText: '↻ Reset',
+                sectionTitle: 'Available Properties',
+                resultsCount: 'properties found',
+                modalAuthTitle: 'Login / Register',
+                labelUserType: 'I am a:',
+                buyerText: 'Buyer',
+                sellerText: 'Seller',
+                labelName: 'Name',
+                labelEmail: 'Email',
+                submitAuthText: 'Continue',
+                modalAddTitle: 'Add New Property',
+                labelPropTitle: 'Property Title',
+                labelPropPrice: 'Price',
+                labelPropLocation: 'Location',
+                labelPropType: 'Property Type',
+                labelPropSale: 'Sale Type',
+                labelPropPhone: 'Phone Number',
+                labelPropDescription: 'Description',
+                labelPropImage: 'Image URL',
+                submitPropertyText: 'Add Property',
+                footerText: '© 2025 EstateHub. All rights reserved.',
+                allTypes: 'All Types',
+                apartment: 'Apartment',
+                villa: 'Villa',
+                land: 'Land',
+                office: 'Office',
+                all: 'All',
+                forSale: 'For Sale',
+                forRent: 'For Rent',
+                allLocations: 'All Locations',
+                emptyTitle: 'No Properties Found',
+                emptyDescription: 'Try adjusting your filters to find more properties',
+                contactSeller: '📞 Contact Seller',
+                type: 'Type',
+                saleType: 'Status'
+            },
+            ar: {
+                logoText: 'إستيت هاب',
+                langBtnText: 'English',
+                loginText: 'تسجيل الدخول',
+                addPropertyText: '+ إضافة عقار',
+                heroTitle: 'اعثر على منزل أحلامك',
+                heroSubtitle: 'اكتشف العقار المثالي من آلاف القوائم',
+                labelType: 'نوع العقار',
+                labelSale: 'نوع البيع',
+                labelLocation: 'الموقع',
+                labelMinPrice: 'السعر الأدنى',
+                labelMaxPrice: 'السعر الأقصى',
+                btnSearchText: '🔍 بحث',
+                btnResetText: '↻ إعادة تعيين',
+                sectionTitle: 'العقارات المتاحة',
+                resultsCount: 'عقار متاح',
+                modalAuthTitle: 'تسجيل الدخول / التسجيل',
+                labelUserType: 'أنا:',
+                buyerText: 'مشتري',
+                sellerText: 'بائع',
+                labelName: 'الاسم',
+                labelEmail: 'البريد الإلكتروني',
+                submitAuthText: 'متابعة',
+                modalAddTitle: 'إضافة عقار جديد',
+                labelPropTitle: 'عنوان العقار',
+                labelPropPrice: 'السعر',
+                labelPropLocation: 'الموقع',
+                labelPropType: 'نوع العقار',
+                labelPropSale: 'نوع البيع',
+                labelPropPhone: 'رقم الهاتف',
+                labelPropDescription: 'الوصف',
+                labelPropImage: 'رابط الصورة',
+                submitPropertyText: 'إضافة عقار',
+                footerText: '© 2025 إستيت هاب. جميع الحقوق محفوظة.',
+                allTypes: 'جميع الأنواع',
+                apartment: 'شقة',
+                villa: 'فيلا',
+                land: 'أرض',
+                office: 'مكتب',
+                all: 'الكل',
+                forSale: 'للبيع',
+                forRent: 'للإيجار',
+                allLocations: 'جميع المواقع',
+                emptyTitle: 'لم يتم العثور على عقارات',
+                emptyDescription: 'حاول تعديل الفلاتر للعثور على المزيد من العقارات',
+                contactSeller: '📞 اتصل بالبائع',
+                type: 'النوع',
+                saleType: 'الحالة'
+            }
+        };
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // DUMMY PROPERTIES DATA
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const properties = [
+            {
+                id: 1,
+                title: { en: 'Luxury Apartment in Downtown', ar: 'شقة فاخرة في وسط المدينة' },
+                price: 850000,
+                location: { en: 'Cairo, Downtown', ar: 'القاهرة، وسط البلد' },
+                propertyType: 'Apartment',
+                saleType: 'Sale',
+                phone: '+20 100 123 4567',
+                description: { 
+                    en: 'Stunning 3-bedroom apartment with modern finishes, panoramic city views, and premium amenities including gym and pool.',
+                    ar: 'شقة مذهلة بثلاث غرف نوم مع تشطيبات عصرية، إطلالات بانورامية على المدينة، ومرافق متميزة تشمل صالة رياضية ومسبح.'
+                },
+                images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800']
+            },
+            {
+                id: 2,
+                title: { en: 'Modern Villa with Pool', ar: 'فيلا عصرية مع مسبح' },
+                price: 2500000,
+                location: { en: 'Giza, 6th October', ar: 'الجيزة، 6 أكتوبر' },
+                propertyType: 'Villa',
+                saleType: 'Sale',
+                phone: '+20 101 234 5678',
+                description: { 
+                    en: 'Spacious 5-bedroom villa with private pool, garden, and stunning architecture in a gated community.',
+                    ar: 'فيلا واسعة بخمس غرف نوم مع مسبح خاص، حديقة، وتصميم معماري مذهل في مجمع مغلق.'
+                },
+                images: ['https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800']
+            },
+            {
+                id: 3,
+                title: { en: 'Cozy Studio for Rent', ar: 'استوديو مريح للإيجار' },
+                price: 3500,
+                location: { en: 'Alexandria, Miami', ar: 'الإسكندرية، ميامي' },
+                propertyType: 'Apartment',
+                saleType: 'Rent',
+                phone: '+20 102 345 6789',
+                description: { 
+                    en: 'Perfect studio apartment near the beach with fully furnished interiors and sea view balcony.',
+                    ar: 'شقة استوديو مثالية بالقرب من الشاطئ مع تجهيزات كاملة وشرفة بإطلالة بحرية.'
+                },
+                images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800']
+            },
+            {
+                id: 4,
+                title: { en: 'Commercial Land', ar: 'أرض تجارية' },
+                price: 1200000,
+                location: { en: 'New Cairo', ar: 'القاهرة الجديدة' },
+                propertyType: 'Land',
+                saleType: 'Sale',
+                phone: '+20 103 456 7890',
+                description: { 
+                    en: '500 sqm commercial land in prime location, perfect for building retail or office space.',
+                    ar: '500 متر مربع أرض تجارية في موقع متميز، مثالية لبناء محلات تجارية أو مساحات مكتبية.'
+                },
+                images: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800']
+            },
+            {
+                id: 5,
+                title: { en: 'Furnished Office Space', ar: 'مكتب مفروش' },
+                price: 8000,
+                location: { en: 'Cairo, Nasr City', ar: 'القاهرة، مدينة نصر' },
+                propertyType: 'Office',
+                saleType: 'Rent',
+                phone: '+20 104 567 8901',
+                description: { 
+                    en: 'Modern office space 200 sqm, fully furnished with meeting rooms and high-speed internet.',
+                    ar: 'مساحة مكتبية عصرية 200 متر مربع، مفروشة بالكامل مع غرف اجتماعات وإنترنت عالي السرعة.'
+                },
+                images: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800']
+            },
+            {
+                id: 6,
+                title: { en: 'Beachfront Apartment', ar: 'شقة على الشاطئ' },
+                price: 1500000,
+                location: { en: 'North Coast, Marina', ar: 'الساحل الشمالي، مارينا' },
+                propertyType: 'Apartment',
+                saleType: 'Sale',
+                phone: '+20 105 678 9012',
+                description: { 
+                    en: '2-bedroom apartment with direct beach access, stunning sea views, and resort amenities.',
+                    ar: 'شقة بغرفتي نوم مع وصول مباشر للشاطئ، إطلالات بحرية خلابة، ومرافق منتجع.'
+                },
+                images: ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800']
+            },
+            {
+                id: 7,
+                title: { en: 'Family Villa with Garden', ar: 'فيلا عائلية مع حديقة' },
+                price: 15000,
+                location: { en: 'Sheikh Zayed', ar: 'الشيخ زايد' },
+                propertyType: 'Villa',
+                saleType: 'Rent',
+                phone: '+20 106 789 0123',
+                description: { 
+                    en: 'Spacious 4-bedroom villa with large garden, garage, and modern amenities in quiet neighborhood.',
+                    ar: 'فيلا واسعة بأربع غرف نوم مع حديقة كبيرة، جراج، ومرافق عصرية في حي هادئ.'
+                },
+                images: ['https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800']
+            },
+            {
+                id: 8,
+                title: { en: 'Penthouse with Terrace', ar: 'بنتهاوس مع تراس' },
+                price: 3200000,
+                location: { en: 'Cairo, Zamalek', ar: 'القاهرة، الزمالك' },
+                propertyType: 'Apartment',
+                saleType: 'Sale',
+                phone: '+20 107 890 1234',
+                description: { 
+                    en: 'Exclusive penthouse with 360° views, private terrace, jacuzzi, and luxury finishes throughout.',
+                    ar: 'بنتهاوس حصري مع إطلالات 360 درجة، تراس خاص، جاكوزي، وتشطيبات فاخرة.'
+                },
+                images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800']
+            },
+            {
+                id: 9,
+                title: { en: 'Agricultural Land', ar: 'أرض زراعية' },
+                price: 450000,
+                location: { en: 'Fayoum', ar: 'الفيوم' },
+                propertyType: 'Land',
+                saleType: 'Sale',
+                phone: '+20 108 901 2345',
+                description: { 
+                    en: '2000 sqm fertile agricultural land with water access, perfect for farming or investment.',
+                    ar: '2000 متر مربع أرض زراعية خصبة مع مصدر مياه، مثالية للزراعة أو الاستثمار.'
+                },
+                images: ['https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800']
+            },
+            {
+                id: 10,
+                title: { en: 'Student Apartment', ar: 'شقة طلابية' },
+                price: 2500,
+                location: { en: 'Cairo, Dokki', ar: 'القاهرة، الدقي' },
+                propertyType: 'Apartment',
+                saleType: 'Rent',
+                phone: '+20 109 012 3456',
+                description: { 
+                    en: 'Affordable 1-bedroom apartment near universities, fully furnished with all utilities included.',
+                    ar: 'شقة بغرفة نوم واحدة بأسعار معقولة بالقرب من الجامعات، مفروشة بالكامل مع جميع المرافق.'
+                },
+                images: ['https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800']
+            },
+            {
+                id: 11,
+                title: { en: 'Commercial Building', ar: 'مبنى تجاري' },
+                price: 8500000,
+                location: { en: 'Cairo, Heliopolis', ar: 'القاهرة، مصر الجديدة' },
+                propertyType: 'Office',
+                saleType: 'Sale',
+                phone: '+20 110 123 4567',
+                description: { 
+                    en: '10-floor commercial building with parking, elevators, and prime location for businesses.',
+                    ar: 'مبنى تجاري من 10 طوابق مع موقف سيارات، مصاعد، وموقع متميز للأعمال التجارية.'
+                },
+                images: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800']
+            },
+            {
+                id: 12,
+                title: { en: 'Countryside Villa', ar: 'فيلا ريفية' },
+                price: 1800000,
+                location: { en: 'Ain Sokhna', ar: 'العين السخنة' },
+                propertyType: 'Villa',
+                saleType: 'Sale',
+                phone: '+20 111 234 5678',
+                description: { 
+                    en: 'Beautiful villa surrounded by nature, perfect for weekend getaways with mountain views.',
+                    ar: 'فيلا جميلة محاطة بالطبيعة، مثالية لقضاء عطلات نهاية الأسبوع مع إطلالات جبلية.'
+                },
+                images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800']
+            }
+        ];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // STATE MANAGEMENT
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        let currentLanguage = 'en';
+        let currentUser = null;
+        let allProperties = [...properties];
+        let filteredProperties = [...properties];
+
+        // Load saved properties from memory
+        const savedProperties = [];
+        
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // DOM ELEMENTS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const loginBtn = document.getElementById('login-btn');
+        const addPropertyBtn = document.getElementById('add-property-btn');
+        const authModal = document.getElementById('auth-modal');
+        const addPropertyModal = document.getElementById('add-property-modal');
+        const closeAuthModal = document.getElementById('close-auth-modal');
+        const closeAddModal = document.getElementById('close-add-modal');
+        const submitAuth = document.getElementById('submit-auth');
+        const submitProperty = document.getElementById('submit-property');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+        const propertiesGrid = document.getElementById('properties-grid');
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // LANGUAGE SWITCHING
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function switchLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
+            const direction = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+            
+            document.documentElement.setAttribute('lang', currentLanguage);
+            document.documentElement.setAttribute('dir', direction);
+            
+            updateUI();
+            renderProperties(filteredProperties);
+        }
+
+        function updateUI() {
+            const t = translations[currentLanguage];
+            
+            // Update all text elements
+            Object.keys(t).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = t[key];
+                }
+            });
+
+            // Update filter dropdowns
+            updateFilterDropdowns();
+        }
+
+        function updateFilterDropdowns() {
+            const t = translations[currentLanguage];
+            
+            // Property Type
+            const typeFilter = document.getElementById('filter-type');
+            typeFilter.innerHTML = `
+                <option value="">${t.allTypes}</option>
+                <option value="Apartment">${t.apartment}</option>
+                <option value="Villa">${t.villa}</option>
+                <option value="Land">${t.land}</option>
+                <option value="Office">${t.office}</option>
+            `;
+
+            // Sale Type
+            const saleTypeFilter = document.getElementById('filter-sale-type');
+            saleTypeFilter.innerHTML = `
+                <option value="">${t.all}</option>
+                <option value="Sale">${t.forSale}</option>
+                <option value="Rent">${t.forRent}</option>
+            `;
+
+            // Locations
+            updateLocationFilter();
+        }
+
+        function updateLocationFilter() {
+            const t = translations[currentLanguage];
+            const locationFilter = document.getElementById('filter-location');
+            const locations = [...new Set(allProperties.map(p => p.location[currentLanguage]))];
+            
+            locationFilter.innerHTML = `<option value="">${t.allLocations}</option>`;
+            locations.forEach(location => {
+                locationFilter.innerHTML += `<option value="${location}">${location}</option>`;
+            });
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // PROPERTY RENDERING
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderProperties(propertiesToRender) {
+            const t = translations[currentLanguage];
+            
+            if (propertiesToRender.length === 0) {
+                propertiesGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-state-icon">🏠</div>
+                        <h3>${t.emptyTitle}</h3>
+                        <p>${t.emptyDescription}</p>
+                        <button class="btn btn-primary" onclick="resetFilters()">${t.btnResetText}</button>
+                    </div>
+                `;
+                document.getElementById('results-count').textContent = `0 ${t.resultsCount}`;
+                return;
+            }
+
+            propertiesGrid.innerHTML = propertiesToRender.map(property => `
+                <div class="property-card">
+                    <div class="property-image-container">
+                        <img src="${property.images[0]}" alt="${property.title[currentLanguage]}" class="property-image">
+                        <div class="property-badge ${property.saleType.toLowerCase()}">
+                            ${property.saleType === 'Sale' ? t.forSale : t.forRent}
+                        </div>
+                        <div class="property-price">${property.price.toLocaleString()}</div>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-title">${property.title[currentLanguage]}</h3>
+                        <div class="property-location">
+                            📍 ${property.location[currentLanguage]}
+                        </div>
+                        <p class="property-description">${property.description[currentLanguage]}</p>
+                        <div class="property-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">${t.type}</span>
+                                <span class="meta-value">${translations[currentLanguage][property.propertyType.toLowerCase()] || property.propertyType}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">${t.saleType}</span>
+                                <span class="meta-value">${property.saleType === 'Sale' ? t.forSale : t.forRent}</span>
+                            </div>
+                        </div>
+                        <div class="property-actions">
+                            <a href="tel:${property.phone}" class="btn-contact">${t.contactSeller}</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('results-count').textContent = 
+                `${propertiesToRender.length} ${t.resultsCount}`;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // FILTERING
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function applyFilters() {
+            const type = document.getElementById('filter-type').value;
+            const saleType = document.getElementById('filter-sale-type').value;
+            const location = document.getElementById('filter-location').value;
+            const minPrice = parseFloat(document.getElementById('filter-min-price').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('filter-max-price').value) || Infinity;
+
+            filteredProperties = allProperties.filter(property => {
+                const matchesType = !type || property.propertyType === type;
+                const matchesSaleType = !saleType || property.saleType === saleType;
+                const matchesLocation = !location || property.location[currentLanguage] === location;
+                const matchesPrice = property.price >= minPrice && property.price <= maxPrice;
+
+                return matchesType && matchesSaleType && matchesLocation && matchesPrice;
+            });
+
+            renderProperties(filteredProperties);
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-type').value = '';
+            document.getElementById('filter-sale-type').value = '';
+            document.getElementById('filter-location').value = '';
+            document.getElementById('filter-min-price').value = '';
+            document.getElementById('filter-max-price').value = '';
+            
+            filteredProperties = [...allProperties];
+            renderProperties(filteredProperties);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // MODAL MANAGEMENT
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function openModal(modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // AUTHENTICATION (SIMULATED)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function handleAuth() {
+            const name = document.getElementById('auth-name').value;
+            const email = document.getElementById('auth-email').value;
+            const userType = document.querySelector('input[name="user-type"]:checked');
+
+            if (!name || !email || !userType) {
+                alert(currentLanguage === 'en' ? 'Please fill all fields' : 'يرجى ملء جميع الحقول');
+                return;
+            }
+
+            currentUser = {
+                name,
+                email,
+                type: userType.value
+            };
+
+            closeModal(authModal);
+            
+            const welcomeMsg = currentLanguage === 'en' 
+                ? `Welcome ${name}! You are logged in as ${userType.value}.`
+                : `مرحباً ${name}! لقد سجلت الدخول كـ${userType.value === 'buyer' ? 'مشتري' : 'بائع'}.`;
+            
+            alert(welcomeMsg);
+            
+            document.getElementById('login-text').textContent = name;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // ADD PROPERTY
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function handleAddProperty() {
+            const title = document.getElementById('prop-title').value;
+            const price = parseFloat(document.getElementById('prop-price').value);
+            const location = document.getElementById('prop-location').value;
+            const propertyType = document.getElementById('prop-type').value;
+            const saleType = document.getElementById('prop-sale-type').value;
+            const phone = document.getElementById('prop-phone').value;
+            const description = document.getElementById('prop-description').value;
+            const imageUrl = document.getElementById('prop-image').value || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800';
+
+            if (!title || !price || !location || !phone || !description) {
+                alert(currentLanguage === 'en' ? 'Please fill all required fields' : 'يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            const newProperty = {
+                id: allProperties.length + savedProperties.length + 1,
+                title: { en: title, ar: title },
+                price,
+                location: { en: location, ar: location },
+                propertyType,
+                saleType,
+                phone,
+                description: { en: description, ar: description },
+                images: [imageUrl]
+            };
+
+            allProperties.unshift(newProperty);
+            savedProperties.push(newProperty);
+            filteredProperties = [...allProperties];
+            
+            renderProperties(filteredProperties);
+            updateLocationFilter();
+            closeModal(addPropertyModal);
+            
+            // Reset form
+            document.getElementById('prop-title').value = '';
+            document.getElementById('prop-price').value = '';
+            document.getElementById('prop-location').value = '';
+            document.getElementById('prop-phone').value = '';
+            document.getElementById('prop-description').value = '';
+            document.getElementById('prop-image').value = '';
+
+            alert(currentLanguage === 'en' 
+                ? 'Property added successfully!' 
+                : 'تمت إضافة العقار بنجاح!');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // USER TYPE SELECTION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function initUserTypeSelection() {
+            const userTypeOptions = document.querySelectorAll('.user-type-option');
+            userTypeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    userTypeOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    this.querySelector('input[type="radio"]').checked = true;
+                });
+            });
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // EVENT LISTENERS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        langToggleBtn.addEventListener('click', switchLanguage);
+        loginBtn.addEventListener('click', () => openModal(authModal));
+        addPropertyBtn.addEventListener('click', () => {
+            if (!currentUser) {
+                alert(currentLanguage === 'en' 
+                    ? 'Please login first to add a property' 
+                    : 'يرجى تسجيل الدخول أولاً لإضافة عقار');
+                openModal(authModal);
+            } else {
+                openModal(addPropertyModal);
+            }
+        });
+
+        closeAuthModal.addEventListener('click', () => closeModal(authModal));
+        closeAddModal.addEventListener('click', () => closeModal(addPropertyModal));
+        submitAuth.addEventListener('click', handleAuth);
+        submitProperty.addEventListener('click', handleAddProperty);
+        applyFiltersBtn.addEventListener('click', applyFilters);
+        resetFiltersBtn.addEventListener('click', resetFilters);
+
+        // Close modals on outside click
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) closeModal(authModal);
+        });
+        addPropertyModal.addEventListener('click', (e) => {
+            if (e.target === addPropertyModal) closeModal(addPropertyModal);
+        });
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // INITIALIZATION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function init() {
+            updateUI();
+            renderProperties(filteredProperties);
+            initUserTypeSelection();
+        }
+
+        // Start the application
+        init();
+    </script>
+</body>
+</html>
