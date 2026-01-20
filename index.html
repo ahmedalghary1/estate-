@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,7 +127,7 @@
            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .hero {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(30, 64, 175, 0.95)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e5e7eb" width="1200" height="600"/><path fill="%23d1d5db" d="M0 300L50 283.3C100 266.7 200 233.3 300 216.7C400 200 500 200 600 216.7C700 233.3 800 266.7 900 283.3C1000 300 1100 300 1150 300L1200 300L1200 601L1150 601C1100 601 1000 601 900 601C800 601 700 601 600 601C500 601 400 601 300 601C200 601 100 601 50 601L0 601Z"/></svg>');
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e5e7eb" width="1200" height="600"/><path fill="%23d1d5db" d="M0 300L50 283.3C100 266.7 200 233.3 300 216.7C400 200 500 200 600 216.7C700 233.3 800 266.7 900 283.3C1000 300 1100 300 1150 300L1200 300L1200 601L1150 601C1100 601 1000 601 900 601C800 601 700 601 600 601C500 601 400 601 300 601C200 601 100 601 50 601L0 601Z"/></svg>');
             background-size: cover;
             background-position: center;
             color: white;
@@ -152,6 +153,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -476,6 +478,7 @@
                 opacity: 0;
                 transform: translateY(-50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -682,8 +685,595 @@
         .hidden {
             display: none !important;
         }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROPERTY DETAILS MODAL
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .property-details-modal .modal-content {
+            max-width: 1200px;
+            width: 95%;
+            max-height: 95vh;
+            padding: 0;
+        }
+
+        .property-details-hero {
+            position: relative;
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+        }
+
+        .property-details-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+        }
+
+        .property-details-hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            color: white;
+            z-index: 1;
+        }
+
+        .property-details-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .property-details-location {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .property-details-price {
+            font-size: 2rem;
+            font-weight: 700;
+            background: rgba(37, 99, 235, 0.9);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .property-details-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .property-details-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: rotate(90deg);
+        }
+
+        [dir="rtl"] .property-details-close {
+            right: auto;
+            left: 1.5rem;
+        }
+
+        .property-details-body {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: calc(95vh - 450px);
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            margin-bottom: 2rem;
+        }
+
+        .gallery-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item.active {
+            outline: 3px solid var(--primary-color);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-prev {
+            left: 2rem;
+        }
+
+        .lightbox-next {
+            right: 2rem;
+        }
+
+        /* Details Grid */
+        .details-section {
+            margin-bottom: 2rem;
+        }
+
+        .details-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Description */
+        .description-section {
+            margin-bottom: 2rem;
+        }
+
+        .description-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .description-text {
+            line-height: 1.8;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+        }
+
+        /* Contact Card */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .contact-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-contact-large {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-contact-large:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           USER PROFILE
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .profile-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid white;
+        }
+
+        .profile-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .profile-modal .modal-content {
+            max-width: 600px;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            border: 4px solid white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-type-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .profile-body {
+            padding: 2rem;
+        }
+
+        .profile-section {
+            margin-bottom: 2rem;
+        }
+
+        .profile-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .profile-info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .profile-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .profile-info-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .profile-info-value {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .edit-mode .profile-info-value {
+            display: none;
+        }
+
+        .edit-mode .profile-edit-input {
+            display: block;
+        }
+
+        .profile-edit-input {
+            display: none;
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .profile-edit-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-profile {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-edit {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-cancel {
+            background: var(--text-light);
+            color: white;
+            display: none;
+        }
+
+        .edit-mode .btn-cancel {
+            display: block;
+        }
+
+        .edit-mode .btn-edit {
+            background: var(--secondary-color);
+        }
+
+        .btn-cancel:hover {
+            background: var(--text-dark);
+        }
+
+        /* View Details Button */
+        .btn-view-details {
+            flex: 1;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.75rem;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-view-details:hover {
+            background: #059669;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           RESPONSIVE UPDATES
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 768px) {
+            .property-details-hero {
+                height: 300px;
+            }
+
+            .property-details-title {
+                font-size: 1.8rem;
+            }
+
+            .property-details-price {
+                font-size: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-prev {
+                left: 0.5rem;
+            }
+
+            .lightbox-next {
+                right: 0.5rem;
+            }
+
+            .contact-actions {
+                flex-direction: column;
+            }
+
+            .btn-contact-large {
+                min-width: 100%;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
          HEADER
@@ -696,6 +1286,9 @@
             <div class="nav-actions">
                 <button class="btn btn-lang" id="lang-toggle">
                     <span id="lang-btn-text">العربية</span>
+                </button>
+                <button class="btn profile-btn hidden" id="profile-btn" title="Profile">
+                    👤
                 </button>
                 <button class="btn btn-secondary" id="login-btn">
                     <span id="login-text">Login</span>
@@ -874,6 +1467,122 @@
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         PROPERTY DETAILS MODAL
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="modal property-details-modal" id="property-details-modal">
+        <div class="modal-content">
+            <!-- Hero Section with Main Image -->
+            <div class="property-details-hero" id="details-hero">
+                <button class="property-details-close" id="close-details-modal">✕</button>
+                <div class="property-details-hero-content">
+                    <h2 class="property-details-title" id="details-title"></h2>
+                    <div class="property-details-location" id="details-location"></div>
+                    <div class="property-details-price" id="details-price"></div>
+                </div>
+            </div>
+
+            <!-- Body Content -->
+            <div class="property-details-body">
+                <!-- Image Gallery -->
+                <div class="gallery-section">
+                    <h3>📷 <span id="gallery-heading">Gallery</span></h3>
+                    <div class="gallery-grid" id="gallery-grid"></div>
+                </div>
+
+                <!-- Property Details -->
+                <div class="details-section">
+                    <h3>📋 <span id="property-info-heading">Property Information</span></h3>
+                    <div class="details-grid" id="details-grid"></div>
+                </div>
+
+                <!-- Description -->
+                <div class="description-section">
+                    <h3>📝 <span id="description-heading">Description</span></h3>
+                    <p class="description-text" id="details-description"></p>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="contact-section">
+                    <h3>📞 <span id="contact-heading">Contact Information</span></h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span>📱</span>
+                            <span id="details-phone"></span>
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <a class="btn-contact-large" id="details-call-btn" href="">
+                            📞 <span id="call-now-text">Call Now</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         LIGHTBOX FOR IMAGES
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close">✕</button>
+            <button class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</button>
+            <img class="lightbox-image" id="lightbox-image" src="" alt="">
+            <button class="lightbox-nav lightbox-next" id="lightbox-next">›</button>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         USER PROFILE MODAL
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="modal profile-modal" id="profile-modal">
+        <div class="modal-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <button class="modal-close" id="close-profile-modal"
+                    style="position: absolute; top: 1rem; right: 1rem;">✕</button>
+                <div class="profile-avatar">👤</div>
+                <h2 class="profile-name" id="profile-name-display">User Name</h2>
+                <div class="profile-type-badge" id="profile-type-display">Buyer</div>
+            </div>
+
+            <!-- Profile Body -->
+            <div class="profile-body">
+                <!-- Account Information -->
+                <div class="profile-section">
+                    <h3>⚙️ <span id="profile-info-heading">Account Information</span></h3>
+                    <div class="profile-info-grid">
+                        <div class="profile-info-item">
+                            <span class="profile-info-label" id="profile-name-label">Name</span>
+                            <span class="profile-info-value" id="profile-name-value">User Name</span>
+                            <input type="text" class="profile-edit-input" id="profile-name-input" value="">
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label" id="profile-email-label">Email</span>
+                            <span class="profile-info-value" id="profile-email-value">user@example.com</span>
+                            <input type="email" class="profile-edit-input" id="profile-email-input" value="">
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label" id="profile-type-label">Account Type</span>
+                            <span class="profile-info-value" id="profile-type-value">Buyer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="profile-actions">
+                    <button class="btn-profile btn-edit" id="profile-edit-btn">
+                        <span id="profile-edit-text">Edit Profile</span>
+                    </button>
+                    <button class="btn-profile btn-cancel" id="profile-cancel-btn">
+                        <span id="profile-cancel-text">Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
          FOOTER
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <footer>
@@ -932,7 +1641,20 @@
                 emptyDescription: 'Try adjusting your filters to find more properties',
                 contactSeller: '📞 Contact Seller',
                 type: 'Type',
-                saleType: 'Status'
+                saleType: 'Status',
+                viewDetails: 'View Details',
+                galleryHeading: 'Gallery',
+                propertyInfoHeading: 'Property Information',
+                descriptionHeading: 'Description',
+                contactHeading: 'Contact Information',
+                callNowText: 'Call Now',
+                profileInfoHeading: 'Account Information',
+                profileNameLabel: 'Name',
+                profileEmailLabel: 'Email',
+                profileTypeLabel: 'Account Type',
+                profileEditText: 'Edit Profile',
+                profileCancelText: 'Cancel',
+                profileSaveText: 'Save Changes'
             },
             ar: {
                 logoText: 'إستيت هاب',
@@ -981,7 +1703,20 @@
                 emptyDescription: 'حاول تعديل الفلاتر للعثور على المزيد من العقارات',
                 contactSeller: '📞 اتصل بالبائع',
                 type: 'النوع',
-                saleType: 'الحالة'
+                saleType: 'الحالة',
+                viewDetails: 'عرض التفاصيل',
+                galleryHeading: 'معرض الصور',
+                propertyInfoHeading: 'معلومات العقار',
+                descriptionHeading: 'الوصف',
+                contactHeading: 'معلومات الاتصال',
+                callNowText: 'اتصل الآن',
+                profileInfoHeading: 'معلومات الحساب',
+                profileNameLabel: 'الاسم',
+                profileEmailLabel: 'البريد الإلكتروني',
+                profileTypeLabel: 'نوع الحساب',
+                profileEditText: 'تعديل الملف',
+                profileCancelText: 'إلغاء',
+                profileSaveText: 'حفظ التغييرات'
             }
         };
 
@@ -997,7 +1732,7 @@
                 propertyType: 'Apartment',
                 saleType: 'Sale',
                 phone: '+20 100 123 4567',
-                description: { 
+                description: {
                     en: 'Stunning 3-bedroom apartment with modern finishes, panoramic city views, and premium amenities including gym and pool.',
                     ar: 'شقة مذهلة بثلاث غرف نوم مع تشطيبات عصرية، إطلالات بانورامية على المدينة، ومرافق متميزة تشمل صالة رياضية ومسبح.'
                 },
@@ -1011,7 +1746,7 @@
                 propertyType: 'Villa',
                 saleType: 'Sale',
                 phone: '+20 101 234 5678',
-                description: { 
+                description: {
                     en: 'Spacious 5-bedroom villa with private pool, garden, and stunning architecture in a gated community.',
                     ar: 'فيلا واسعة بخمس غرف نوم مع مسبح خاص، حديقة، وتصميم معماري مذهل في مجمع مغلق.'
                 },
@@ -1025,7 +1760,7 @@
                 propertyType: 'Apartment',
                 saleType: 'Rent',
                 phone: '+20 102 345 6789',
-                description: { 
+                description: {
                     en: 'Perfect studio apartment near the beach with fully furnished interiors and sea view balcony.',
                     ar: 'شقة استوديو مثالية بالقرب من الشاطئ مع تجهيزات كاملة وشرفة بإطلالة بحرية.'
                 },
@@ -1039,7 +1774,7 @@
                 propertyType: 'Land',
                 saleType: 'Sale',
                 phone: '+20 103 456 7890',
-                description: { 
+                description: {
                     en: '500 sqm commercial land in prime location, perfect for building retail or office space.',
                     ar: '500 متر مربع أرض تجارية في موقع متميز، مثالية لبناء محلات تجارية أو مساحات مكتبية.'
                 },
@@ -1053,7 +1788,7 @@
                 propertyType: 'Office',
                 saleType: 'Rent',
                 phone: '+20 104 567 8901',
-                description: { 
+                description: {
                     en: 'Modern office space 200 sqm, fully furnished with meeting rooms and high-speed internet.',
                     ar: 'مساحة مكتبية عصرية 200 متر مربع، مفروشة بالكامل مع غرف اجتماعات وإنترنت عالي السرعة.'
                 },
@@ -1067,7 +1802,7 @@
                 propertyType: 'Apartment',
                 saleType: 'Sale',
                 phone: '+20 105 678 9012',
-                description: { 
+                description: {
                     en: '2-bedroom apartment with direct beach access, stunning sea views, and resort amenities.',
                     ar: 'شقة بغرفتي نوم مع وصول مباشر للشاطئ، إطلالات بحرية خلابة، ومرافق منتجع.'
                 },
@@ -1081,7 +1816,7 @@
                 propertyType: 'Villa',
                 saleType: 'Rent',
                 phone: '+20 106 789 0123',
-                description: { 
+                description: {
                     en: 'Spacious 4-bedroom villa with large garden, garage, and modern amenities in quiet neighborhood.',
                     ar: 'فيلا واسعة بأربع غرف نوم مع حديقة كبيرة، جراج، ومرافق عصرية في حي هادئ.'
                 },
@@ -1095,7 +1830,7 @@
                 propertyType: 'Apartment',
                 saleType: 'Sale',
                 phone: '+20 107 890 1234',
-                description: { 
+                description: {
                     en: 'Exclusive penthouse with 360° views, private terrace, jacuzzi, and luxury finishes throughout.',
                     ar: 'بنتهاوس حصري مع إطلالات 360 درجة، تراس خاص، جاكوزي، وتشطيبات فاخرة.'
                 },
@@ -1109,7 +1844,7 @@
                 propertyType: 'Land',
                 saleType: 'Sale',
                 phone: '+20 108 901 2345',
-                description: { 
+                description: {
                     en: '2000 sqm fertile agricultural land with water access, perfect for farming or investment.',
                     ar: '2000 متر مربع أرض زراعية خصبة مع مصدر مياه، مثالية للزراعة أو الاستثمار.'
                 },
@@ -1123,7 +1858,7 @@
                 propertyType: 'Apartment',
                 saleType: 'Rent',
                 phone: '+20 109 012 3456',
-                description: { 
+                description: {
                     en: 'Affordable 1-bedroom apartment near universities, fully furnished with all utilities included.',
                     ar: 'شقة بغرفة نوم واحدة بأسعار معقولة بالقرب من الجامعات، مفروشة بالكامل مع جميع المرافق.'
                 },
@@ -1137,7 +1872,7 @@
                 propertyType: 'Office',
                 saleType: 'Sale',
                 phone: '+20 110 123 4567',
-                description: { 
+                description: {
                     en: '10-floor commercial building with parking, elevators, and prime location for businesses.',
                     ar: 'مبنى تجاري من 10 طوابق مع موقف سيارات، مصاعد، وموقع متميز للأعمال التجارية.'
                 },
@@ -1151,7 +1886,7 @@
                 propertyType: 'Villa',
                 saleType: 'Sale',
                 phone: '+20 111 234 5678',
-                description: { 
+                description: {
                     en: 'Beautiful villa surrounded by nature, perfect for weekend getaways with mountain views.',
                     ar: 'فيلا جميلة محاطة بالطبيعة، مثالية لقضاء عطلات نهاية الأسبوع مع إطلالات جبلية.'
                 },
@@ -1169,7 +1904,7 @@
 
         // Load saved properties from memory
         const savedProperties = [];
-        
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // DOM ELEMENTS
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1192,17 +1927,17 @@
         function switchLanguage() {
             currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
             const direction = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-            
+
             document.documentElement.setAttribute('lang', currentLanguage);
             document.documentElement.setAttribute('dir', direction);
-            
+
             updateUI();
             renderProperties(filteredProperties);
         }
 
         function updateUI() {
             const t = translations[currentLanguage];
-            
+
             // Update all text elements
             Object.keys(t).forEach(key => {
                 const element = document.getElementById(key);
@@ -1217,7 +1952,7 @@
 
         function updateFilterDropdowns() {
             const t = translations[currentLanguage];
-            
+
             // Property Type
             const typeFilter = document.getElementById('filter-type');
             typeFilter.innerHTML = `
@@ -1244,7 +1979,7 @@
             const t = translations[currentLanguage];
             const locationFilter = document.getElementById('filter-location');
             const locations = [...new Set(allProperties.map(p => p.location[currentLanguage]))];
-            
+
             locationFilter.innerHTML = `<option value="">${t.allLocations}</option>`;
             locations.forEach(location => {
                 locationFilter.innerHTML += `<option value="${location}">${location}</option>`;
@@ -1256,7 +1991,7 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderProperties(propertiesToRender) {
             const t = translations[currentLanguage];
-            
+
             if (propertiesToRender.length === 0) {
                 propertiesGrid.innerHTML = `
                     <div class="empty-state" style="grid-column: 1/-1;">
@@ -1302,7 +2037,7 @@
                 </div>
             `).join('');
 
-            document.getElementById('results-count').textContent = 
+            document.getElementById('results-count').textContent =
                 `${propertiesToRender.length} ${t.resultsCount}`;
         }
 
@@ -1334,7 +2069,7 @@
             document.getElementById('filter-location').value = '';
             document.getElementById('filter-min-price').value = '';
             document.getElementById('filter-max-price').value = '';
-            
+
             filteredProperties = [...allProperties];
             renderProperties(filteredProperties);
         }
@@ -1372,13 +2107,13 @@
             };
 
             closeModal(authModal);
-            
-            const welcomeMsg = currentLanguage === 'en' 
+
+            const welcomeMsg = currentLanguage === 'en'
                 ? `Welcome ${name}! You are logged in as ${userType.value}.`
                 : `مرحباً ${name}! لقد سجلت الدخول كـ${userType.value === 'buyer' ? 'مشتري' : 'بائع'}.`;
-            
+
             alert(welcomeMsg);
-            
+
             document.getElementById('login-text').textContent = name;
         }
 
@@ -1415,11 +2150,11 @@
             allProperties.unshift(newProperty);
             savedProperties.push(newProperty);
             filteredProperties = [...allProperties];
-            
+
             renderProperties(filteredProperties);
             updateLocationFilter();
             closeModal(addPropertyModal);
-            
+
             // Reset form
             document.getElementById('prop-title').value = '';
             document.getElementById('prop-price').value = '';
@@ -1428,10 +2163,365 @@
             document.getElementById('prop-description').value = '';
             document.getElementById('prop-image').value = '';
 
-            alert(currentLanguage === 'en' 
-                ? 'Property added successfully!' 
+            alert(currentLanguage === 'en'
+                ? 'Property added successfully!'
                 : 'تمت إضافة العقار بنجاح!');
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // UPDATE PROPERTIES WITH MULTIPLE IMAGES
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // Update existing properties with additional images
+        properties[0].images = [
+            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+            'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=800',
+            'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=800',
+            'https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=800'
+        ];
+        properties[1].images = [
+            'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800',
+            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
+            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800'
+        ];
+        properties[2].images = [
+            'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
+            'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800',
+            'https://images.unsplash.com/photo-1526887593587-a307939a95a5?w=800',
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800'
+        ];
+        properties[3].images = [
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
+            'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800',
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800'
+        ];
+        properties[4].images = [
+            'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
+            'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800',
+            'https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800',
+            'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800'
+        ];
+        properties[5].images = [
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
+            'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800',
+            'https://images.unsplash.com/photo-1571055107870-1e37c62e8b81?w=800',
+            'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800'
+        ];
+        properties[6].images = [
+            'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800',
+            'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+            'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800'
+        ];
+        properties[7].images = [
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
+            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800'
+        ];
+        properties[8].images = [
+            'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800',
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800',
+            'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800'
+        ];
+        properties[9].images = [
+            'https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800',
+            'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800',
+            'https://images.unsplash.com/photo-1560448205-17f0baa2a6c3?w=800'
+        ];
+        properties[10].images = [
+            'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800',
+            'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800',
+            'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800',
+            'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800'
+        ];
+        properties[11].images = [
+            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+            'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800',
+            'https://images.unsplash.com/photo-1600047509783-1c3abf49c93a?w=800'
+        ];
+
+        // Update allProperties with the updated array
+        allProperties = [...properties];
+        filteredProperties = [...properties];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // PROPERTY DETAILS MODAL
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const propertyDetailsModal = document.getElementById('property-details-modal');
+        const closeDetailsModal = document.getElementById('close-details-modal');
+        let currentProperty = null;
+        let currentImageIndex = 0;
+
+        function showPropertyDetails(propertyId) {
+            currentProperty = allProperties.find(p => p.id === propertyId);
+            if (!currentProperty) return;
+
+            const t = translations[currentLanguage];
+
+            // Set hero image and content
+            document.getElementById('details-hero').style.backgroundImage = `url('${currentProperty.images[0]}')`;
+            document.getElementById('details-title').textContent = currentProperty.title[currentLanguage];
+            document.getElementById('details-location').innerHTML = `📍 ${currentProperty.location[currentLanguage]}`;
+            document.getElementById('details-price').textContent = currentProperty.price.toLocaleString();
+
+            // Set gallery
+            const galleryGrid = document.getElementById('gallery-grid');
+            galleryGrid.innerHTML = currentProperty.images.map((img, index) => `
+                <div class="gallery-item ${index === 0 ? 'active' : ''}" onclick="changeHeroImage(${index})">
+                    <img src="${img}" alt="${currentProperty.title[currentLanguage]}">
+                </div>
+            `).join('');
+
+            // Set details
+            const detailsGrid = document.getElementById('details-grid');
+            detailsGrid.innerHTML = `
+                <div class="detail-item">
+                    <span class="detail-label">${t.type}</span>
+                    <span class="detail-value">${translations[currentLanguage][currentProperty.propertyType.toLowerCase()] || currentProperty.propertyType}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">${t.saleType}</span>
+                    <span class="detail-value">${currentProperty.saleType === 'Sale' ? t.forSale : t.forRent}</span>
+                 </div>
+                <div class="detail-item">
+                    <span class="detail-label">${t.labelLocation}</span>
+                    <span class="detail-value">${currentProperty.location[currentLanguage]}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">${t.labelPropPrice}</span>
+                    <span class="detail-value">${currentProperty.price.toLocaleString()}</span>
+                </div>
+            `;
+
+            // Set description
+            document.getElementById('details-description').textContent = currentProperty.description[currentLanguage];
+
+            // Set contact info
+            document.getElementById('details-phone').textContent = currentProperty.phone;
+            document.getElementById('details-call-btn').href = `tel:${currentProperty.phone}`;
+
+            // Update headings
+            document.getElementById('gallery-heading').textContent = t.galleryHeading;
+            document.getElementById('property-info-heading').textContent = t.propertyInfoHeading;
+            document.getElementById('description-heading').textContent = t.descriptionHeading;
+            document.getElementById('contact-heading').textContent = t.contactHeading;
+            document.getElementById('call-now-text').textContent = t.callNowText;
+
+            openModal(propertyDetailsModal);
+            currentImageIndex = 0;
+        }
+
+        function changeHeroImage(index) {
+            if (!currentProperty) return;
+            currentImageIndex = index;
+            document.getElementById('details-hero').style.backgroundImage = `url('${currentProperty.images[index]}')`;
+
+            // Update active state
+            document.querySelectorAll('.gallery-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        // Make function global
+        window.showPropertyDetails = showPropertyDetails;
+        window.changeHeroImage = changeHeroImage;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // LIGHTBOX
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+
+        function openLightbox(index) {
+            if (!currentProperty) return;
+            currentImageIndex = index;
+            lightboxImage.src = currentProperty.images[index];
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        function nextImage() {
+            if (!currentProperty) return;
+            currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length;
+            lightboxImage.src = currentProperty.images[currentImageIndex];
+        }
+
+        function prevImage() {
+            if (!currentProperty) return;
+            currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length;
+            lightboxImage.src = currentProperty.images[currentImageIndex];
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', nextImage);
+        lightboxPrev.addEventListener('click', prevImage);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Add click to hero image to open lightbox
+        document.getElementById('details-hero').addEventListener('click', () => {
+            openLightbox(currentImageIndex);
+        });
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // USER PROFILE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const profileModal = document.getElementById('profile-modal');
+        const profileBtn = document.getElementById('profile-btn');
+        const closeProfileModal = document.getElementById('close-profile-modal');
+        const profileEditBtn = document.getElementById('profile-edit-btn');
+        const profileCancelBtn = document.getElementById('profile-cancel-btn');
+        const profileNameInput = document.getElementById('profile-name-input');
+        const profileEmailInput = document.getElementById('profile-email-input');
+
+        // Show profile button when logged in
+        function updateProfileButton() {
+            if (currentUser) {
+                profileBtn.classList.remove('hidden');
+            } else {
+                profileBtn.classList.add('hidden');
+            }
+        }
+
+        // Original handleAuth modification
+        const originalHandleAuth = handleAuth;
+        handleAuth = function () {
+            originalHandleAuth();
+            updateProfileButton();
+            updateProfileDisplay();
+        };
+
+        function showProfile() {
+            if (!currentUser) return;
+            updateProfileDisplay();
+            openModal(profileModal);
+        }
+
+        function updateProfileDisplay() {
+            if (!currentUser) return;
+
+            const t = translations[currentLanguage];
+            const typeText = currentUser.type === 'buyer' ? t.buyerText : t.sellerText;
+
+            document.getElementById('profile-name-display').textContent = currentUser.name;
+            document.getElementById('profile-type-display').textContent = typeText;
+            document.getElementById('profile-name-value').textContent = currentUser.name;
+            document.getElementById('profile-email-value').textContent = currentUser.email;
+            document.getElementById('profile-type-value').textContent = typeText;
+            profileNameInput.value = currentUser.name;
+            profileEmailInput.value = currentUser.email;
+
+            // Update headings
+            document.getElementById('profile-info-heading').textContent = t.profileInfoHeading;
+            document.getElementById('profile-name-label').textContent = t.profileNameLabel;
+            document.getElementById('profile-email-label').textContent = t.profileEmailLabel;
+            document.getElementById('profile-type-label').textContent = t.profileTypeLabel;
+            document.getElementById('profile-edit-text').textContent = t.profileEditText;
+            document.getElementById('profile-cancel-text').textContent = t.profileCancelText;
+        }
+
+        function toggleEditMode() {
+            const isEditing = profileModal.querySelector('.profile-body').classList.toggle('edit-mode');
+            const t = translations[currentLanguage];
+
+            if (isEditing) {
+                document.getElementById('profile-edit-text').textContent = t.profileSaveText || 'Save Changes';
+            } else {
+                // Save changes
+                currentUser.name = profileNameInput.value;
+                currentUser.email = profileEmailInput.value;
+                updateProfileDisplay();
+                document.getElementById('login-text').textContent = currentUser.name;
+                document.getElementById('profile-edit-text').textContent = t.profileEditText;
+            }
+        }
+
+        function cancelEdit() {
+            profileModal.querySelector('.profile-body').classList.remove('edit-mode');
+            const t = translations[currentLanguage];
+            profileNameInput.value = currentUser.name;
+            profileEmailInput.value = currentUser.email;
+            document.getElementById('profile-edit-text').textContent = t.profileEditText;
+        }
+
+        profileBtn.addEventListener('click', showProfile);
+        closeProfileModal.addEventListener('click', () => closeModal(profileModal));
+        profileEditBtn.addEventListener('click', toggleEditMode);
+        profileCancelBtn.addEventListener('click', cancelEdit);
+        profileModal.addEventListener('click', (e) => {
+            if (e.target === profileModal) closeModal(profileModal);
+        });
+
+        closeDetailsModal.addEventListener('click', () => closeModal(propertyDetailsModal));
+        propertyDetailsModal.addEventListener('click', (e) => {
+            if (e.target === propertyDetailsModal) closeModal(propertyDetailsModal);
+        });
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // UPDATE PROPERTY RENDERING TO INCLUDE VIEW DETAILS BUTTON
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const originalRenderProperties = renderProperties;
+        renderProperties = function (propertiesToRender) {
+            const t = translations[currentLanguage];
+
+            if (propertiesToRender.length === 0) {
+                propertiesGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-state-icon">🏠</div>
+                        <h3>${t.emptyTitle}</h3>
+                        <p>${t.emptyDescription}</p>
+                        <button class="btn btn-primary" onclick="resetFilters()">${t.btnResetText}</button>
+                    </div>
+                `;
+                document.getElementById('results-count').textContent = `0 ${t.resultsCount}`;
+                return;
+            }
+
+            propertiesGrid.innerHTML = propertiesToRender.map(property => `
+                <div class="property-card">
+                    <div class="property-image-container">
+                        <img src="${property.images[0]}" alt="${property.title[currentLanguage]}" class="property-image">
+                        <div class="property-badge ${property.saleType.toLowerCase()}">
+                            ${property.saleType === 'Sale' ? t.forSale : t.forRent}
+                        </div>
+                        <div class="property-price">${property.price.toLocaleString()}</div>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-title">${property.title[currentLanguage]}</h3>
+                        <div class="property-location">
+                            📍 ${property.location[currentLanguage]}
+                        </div>
+                        <p class="property-description">${property.description[currentLanguage]}</p>
+                        <div class="property-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">${t.type}</span>
+                                <span class="meta-value">${translations[currentLanguage][property.propertyType.toLowerCase()] || property.propertyType}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">${t.saleType}</span>
+                                <span class="meta-value">${property.saleType === 'Sale' ? t.forSale : t.forRent}</span>
+                            </div>
+                        </div>
+                        <div class="property-actions">
+                            <button class="btn-view-details" onclick="showPropertyDetails(${property.id})">${t.viewDetails}</button>
+                            <a href="tel:${property.phone}" class="btn-contact">${t.contactSeller}</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('results-count').textContent =
+                `${propertiesToRender.length} ${t.resultsCount}`;
+        };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // USER TYPE SELECTION
@@ -1439,7 +2529,7 @@
         function initUserTypeSelection() {
             const userTypeOptions = document.querySelectorAll('.user-type-option');
             userTypeOptions.forEach(option => {
-                option.addEventListener('click', function() {
+                option.addEventListener('click', function () {
                     userTypeOptions.forEach(opt => opt.classList.remove('selected'));
                     this.classList.add('selected');
                     this.querySelector('input[type="radio"]').checked = true;
@@ -1454,8 +2544,8 @@
         loginBtn.addEventListener('click', () => openModal(authModal));
         addPropertyBtn.addEventListener('click', () => {
             if (!currentUser) {
-                alert(currentLanguage === 'en' 
-                    ? 'Please login first to add a property' 
+                alert(currentLanguage === 'en'
+                    ? 'Please login first to add a property'
                     : 'يرجى تسجيل الدخول أولاً لإضافة عقار');
                 openModal(authModal);
             } else {
@@ -1491,4 +2581,5 @@
         init();
     </script>
 </body>
+
 </html>
