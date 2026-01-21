@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if property %}Edit Property{% else %}Add New Property{% endif %} - EstateHub{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 2rem auto;">
+    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-lg);">
+        <h2 style="margin-bottom: 2rem;">
+            {% if property %}
+            {% if language == 'ar' %}تعديل العقار{% else %}Edit Property{% endif %}
+            {% else %}
+            {% if language == 'ar' %}إضافة عقار جديد{% else %}Add New Property{% endif %}
+            {% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">
+                    📝 {% if language == 'ar' %}معلومات باللغة الإنجليزية{% else %}English Information{% endif %}
+                </h3>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Title (English) *</label>
+                    {{ form.title_en }}
+                    {% if form.title_en.errors %}
+                    <small style="color: red;">{{ form.title_en.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Description (English)
+                        *</label>
+                    {{ form.description_en }}
+                    {% if form.description_en.errors %}
+                    <small style="color: red;">{{ form.description_en.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Location (English) *</label>
+                    {{ form.location_en }}
+                    {% if form.location_en.errors %}
+                    <small style="color: red;">{{ form.location_en.errors.0 }}</small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">
+                    📝 {% if language == 'ar' %}معلومات باللغة العربية{% else %}Arabic Information{% endif %}
+                </h3>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">العنوان (عربي) *</label>
+                    {{ form.title_ar }}
+                    {% if form.title_ar.errors %}
+                    <small style="color: red;">{{ form.title_ar.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">الوصف (عربي) *</label>
+                    {{ form.description_ar }}
+                    {% if form.description_ar.errors %}
+                    <small style="color: red;">{{ form.description_ar.errors.0 }}</small>
+                    {% endif %}
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">الموقع (عربي) *</label>
+                    {{ form.location_ar }}
+                    {% if form.location_ar.errors %}
+                    <small style="color: red;">{{ form.location_ar.errors.0 }}</small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">
+                    💰 {% if language == 'ar' %}تفاصيل العقار{% else %}Property Details{% endif %}
+                </h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                            {% if language == 'ar' %}السعر{% else %}Price{% endif %} *
+                        </label>
+                        {{ form.price }}
+                        {% if form.price.errors %}
+                        <small style="color: red;">{{ form.price.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                            {% if language == 'ar' %}نوع العقار{% else %}Property Type{% endif %} *
+                        </label>
+                        {{ form.property_type }}
+                        {% if form.property_type.errors %}
+                        <small style="color: red;">{{ form.property_type.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                            {% if language == 'ar' %}نوع البيع{% else %}Sale Type{% endif %} *
+                        </label>
+                        {{ form.sale_type }}
+                        {% if form.sale_type.errors %}
+                        <small style="color: red;">{{ form.sale_type.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                            {% if language == 'ar' %}رقم الهاتف{% else %}Phone{% endif %} *
+                        </label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                        <small style="color: red;">{{ form.phone.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">
+                    📸 {% if language == 'ar' %}الصور{% else %}Images{% endif %}
+                </h3>
+
+                <p style="color: var(--text-light); margin-bottom: 1rem;">
+                    {% if language == 'ar' %}
+                    قم برفع حتى 10 صور للعقار (يفضل صور عالية الجودة)
+                    {% else %}
+                    Upload up to 10 images (high quality recommended)
+                    {% endif %}
+                </p>
+
+                {{ formset.management_form }}
+
+                <div id="image-forms">
+                    {% for form in formset %}
+                    <div class="image-form"
+                        style="margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 8px; border: 2px dashed var(--border-color);">
+                        <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center;">
+                            <div>
+                                {{ form.image }}
+                                {{ form.order }}
+                                {{ form.id }}
+                            </div>
+                            <div>
+                                {% if form.instance.pk %}
+                                {{ form.DELETE }}
+                                <label>Delete</label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <a href="{% url 'property_list' %}" class="btn btn-secondary">
+                    {% if language == 'ar' %}إلغاء{% else %}Cancel{% endif %}
+                </a>
+                <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem;">
+                    💾 {% if property %}
+                    {% if language == 'ar' %}تحديث{% else %}Update{% endif %}
+                    {% else %}
+                    {% if language == 'ar' %}إضافة{% else %}Add Property{% endif %}
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    input[type="file"] {
+        padding: 0.5rem;
+    }
+</style>
+{% endblock %}

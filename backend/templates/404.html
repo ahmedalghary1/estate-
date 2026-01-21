@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found - 404{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 1.5rem; max-width: 600px; margin: 0 auto;">
+    <div style="font-size: 8rem; font-weight: bold; color: var(--primary-color); margin-bottom: 1rem;">
+        404
+    </div>
+
+    <h1 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-dark);">
+        {% if language == 'ar' %}الصفحة غير موجودة{% else %}Page Not Found{% endif %}
+    </h1>
+
+    <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem;">
+        {% if language == 'ar' %}
+        عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها.
+        {% else %}
+        Sorry, the page you're looking for doesn't exist or has been moved.
+        {% endif %}
+    </p>
+
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'property_list' %}" class="btn btn-primary">
+            🏠 {% if language == 'ar' %}العودة للرئيسية{% else %}Go Home{% endif %}
+        </a>
+        <a href="javascript:history.back()" class="btn btn-secondary">
+            ← {% if language == 'ar' %}رجوع{% else %}Go Back{% endif %}
+        </a>
+    </div>
+
+    <div style="margin-top: 3rem; padding: 2rem; background: var(--bg-light); border-radius: 12px;">
+        <h3 style="margin-bottom: 1rem;">
+            {% if language == 'ar' %}ماذا يمكنك أن تفعل؟{% else %}What can you do?{% endif %}
+        </h3>
+        <ul style="text-align: left; color: var(--text-light); list-style-position: inside;">
+            <li>{% if language == 'ar' %}تحقق من عنوان الرابط{% else %}Check the URL for typos{% endif %}</li>
+            <li>{% if language == 'ar' %}ابحث عن العقارات{% else %}Browse our properties{% endif %}</li>
+            <li>{% if language == 'ar' %}تواصل معنا للمساعدة{% else %}Contact us for help{% endif %}</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+    }
+</style>
+{% endblock %}

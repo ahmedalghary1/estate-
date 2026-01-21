@@ -2,14 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
+from django.core.paginator import Paginator
 from .models import Property, PropertyImage
 from .forms import PropertyForm, PropertyImageFormSet
 
 def property_list(request):
     """
-    List all active properties with filtering
+    List all active properties with filtering and pagination
     """
-    properties = Property.objects.filter(is_active=True).prefetch_related('images')
+    # Optimized query with prefetch_related
+    properties = Property.objects.filter(
+        is_active=True
+    ).select_related('owner').prefetch_related('images').order_by('-created_at')
     
     # Language selection (from session or default to 'en')
     language = request.session.get('lang', 'en')
@@ -18,6 +22,7 @@ def property_list(request):
     property_type = request.GET.get('type')
     sale_type = request.GET.get('sale_type')
     location = request.GET.get('location')
+    search = request.GET.get('search')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
     
@@ -29,17 +34,30 @@ def property_list(request):
         properties = properties.filter(
             Q(location_en__icontains=location) | Q(location_ar__icontains=location)
         )
+    if search:
+        properties = properties.filter(
+            Q(title_en__icontains=search) | 
+            Q(title_ar__icontains=search) |
+            Q(description_en__icontains=search) | 
+            Q(description_ar__icontains=search)
+        )
     if min_price:
         properties = properties.filter(price__gte=min_price)
     if max_price:
         properties = properties.filter(price__lte=max_price)
+    
+    # Pagination
+    paginator = Paginator(properties, 12)  # Show 12 properties per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     
     # Get unique locations for filter dropdown
     locations_en = Property.objects.values_list('location_en', flat=True).distinct()
     locations_ar = Property.objects.values_list('location_ar', flat=True).distinct()
     
     context = {
-        'properties': properties,
+        'properties': page_obj,
+        'page_obj': page_obj,
         'language': language,
         'locations': set(list(locations_en) + list(locations_ar)),
         'property_types': Property.PROPERTY_TYPE_CHOICES,
@@ -47,6 +65,7 @@ def property_list(request):
     }
     
     return render(request, 'properties/index.html', context)
+
 
 
 def property_detail(request, pk):
@@ -58,6 +77,11 @@ def property_detail(request, pk):
         pk=pk,
         is_active=True
     )
+    
+    # Increment views counter
+    property_obj.views += 1
+    property_obj.save(update_fields=['views'])
+    
     language = request.session.get('lang', 'en')
     
     context = {
@@ -66,6 +90,7 @@ def property_detail(request, pk):
     }
     
     return render(request, 'properties/detail.html', context)
+
 
 
 @login_required

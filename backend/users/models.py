@@ -10,9 +10,11 @@ class UserProfile(models.Model):
         ('seller', 'Seller'),
     ]
     
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='buyer')
     phone = models.CharField(max_length=20, blank=True, null=True)
+    profile_image = models.ImageField(upload_to='profiles/%Y/%m/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

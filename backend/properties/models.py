@@ -35,10 +35,14 @@ class Property(models.Model):
     sale_type = models.CharField(max_length=10, choices=SALE_TYPE_CHOICES)
     phone = models.CharField(max_length=20)
     
+    # Statistics
+    views = models.PositiveIntegerField(default=0, help_text='Number of times this property was viewed')
+    
     # Status and timestamps
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     
     def __str__(self):
         return f"{self.title_en} - {self.property_type}"

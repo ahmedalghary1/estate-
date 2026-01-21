@@ -24,7 +24,7 @@ def profile(request):
     user_profile = request.user.profile
     
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user_profile)
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully!')
@@ -32,7 +32,14 @@ def profile(request):
     else:
         form = UserProfileForm(instance=user_profile)
     
+    
+    # Calculate active properties count
+    active_properties_count = request.user.properties.filter(is_active=True).count()
+    language = request.session.get('lang', 'en')
+    
     return render(request, 'users/profile.html', {
         'form': form,
-        'user_profile': user_profile
+        'user_profile': user_profile,
+        'active_properties_count': active_properties_count,
+        'language': language
     })

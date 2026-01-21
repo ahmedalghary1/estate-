@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ property.get_title }} - EstateHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .property-hero {
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .property-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+        border-radius: 12px;
+    }
+
+    .hero-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        color: white;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .detail-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .images-grid img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="property-hero"
+    style="background-image: url('{% if property.images.first %}{{ property.images.first.image.url }}{% else %}https://via.placeholder.com/1200x400{% endif %}');">
+    <div class="hero-content">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">{{ property.get_title }}</h1>
+        <div style="font-size: 1.2rem; margin-bottom: 1rem;">📍 {{ property.get_location }}</div>
+        <div style="font-size: 2rem; font-weight: 700;">${{ property.price|floatformat:0 }}</div>
+    </div>
+</div>
+
+<div class="detail-grid">
+    <div>
+        <div class="detail-section">
+            <h2>{% if language == 'ar' %}الوصف{% else %}Description{% endif %}</h2>
+            <p style="line-height: 1.8; margin-top: 1rem;">{{ property.get_description }}</p>
+        </div>
+
+        {% if property.images.all %}
+        <div class="detail-section" style="margin-top: 2rem;">
+            <h2>{% if language == 'ar' %}معرض الصور{% else %}Gallery{% endif %}</h2>
+            <div class="images-grid">
+                {% for image in property.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ property.get_title }}">
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <div class="detail-section">
+            <h3>{% if language == 'ar' %}تفاصيل العقار{% else %}Property Details{% endif %}</h3>
+            <div style="margin-top: 1rem;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <small style="color: var(--text-light);">Type</small>
+                    <div style="font-weight: 600;">{{ property.property_type }}</div>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <small style="color: var(--text-light);">Status</small>
+                    <div style="font-weight: 600;">{{ property.get_sale_type_display }}</div>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <small style="color: var(--text-light);">Price</small>
+                    <div style="font-weight: 600; color: var(--primary-color); font-size: 1.5rem;">${{
+                        property.price|floatformat:0 }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section"
+            style="margin-top: 1rem; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white;">
+            <h3>{% if language == 'ar' %}معلومات الاتصال{% else %}Contact Information{% endif %}</h3>
+            <div style="margin-top: 1rem;">
+                <div style="margin-bottom: 0.5rem;">📱 {{ property.phone }}</div>
+                <a href="tel:{{ property.phone }}" class="btn"
+                    style="width: 100%; background: white; color: var(--primary-color); margin-top: 1rem; text-align: center;">
+                    📞 {% if language == 'ar' %}اتصل الآن{% else %}Call Now{% endif %}
+                </a>
+            </div>
+        </div>
+
+        {% if user == property.owner %}
+        <div class="detail-section" style="margin-top: 1rem;">
+            <h4>Owner Actions</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+                <a href="{% url 'property_update' property.pk %}" class="btn btn-primary"
+                    style="text-align: center;">Edit Property</a>
+                <a href="{% url 'property_delete' property.pk %}" class="btn btn-secondary"
+                    style="text-align: center; background: #ef4444;">Delete</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

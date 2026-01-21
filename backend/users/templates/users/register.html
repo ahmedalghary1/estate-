@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - EstateHub{% endblock %}
+
+{% block content %}
+<div
+    style="max-width: 600px; margin: 3rem auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-lg);">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Register for EstateHub</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">I am a:</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                {% for value, label in form.user_type.field.choices %}
+                <label
+                    style="padding: 1rem; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; text-align: center;">
+                    <input type="radio" name="user_type" value="{{ value }}" {% if forloop.first %}checked{% endif %}>
+                    <span style="display: block">{{ label }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+            <small style="color: red;">{{ form.username.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+            <small style="color: red;">{{ form.email.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+            <small style="color: red;">{{ form.password1.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Confirm Password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+            <small style="color: red;">{{ form.password2.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
+            Register
+        </button>
+
+        <p style="text-align: center; margin-top: 1rem;">
+            Already have an account? <a href="{% url 'login' %}" style="color: var(--primary-color);">Login here</a>
+        </p>
+    </form>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+</style>
+{% endblock %}

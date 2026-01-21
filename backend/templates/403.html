@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Access Denied - 403{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem 1.5rem; max-width: 600px; margin: 0 auto;">
+    <div style="font-size: 8rem; font-weight: bold; color: #f59e0b; margin-bottom: 1rem;">
+        403
+    </div>
+
+    <h1 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-dark);">
+        {% if language == 'ar' %}الوصول ممنوع{% else %}Access Denied{% endif %}
+    </h1>
+
+    <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem;">
+        {% if language == 'ar' %}
+        عذراً، ليس لديك صلاحية الوصول إلى هذه الصفحة.
+        {% else %}
+        Sorry, you don't have permission to access this page.
+        {% endif %}
+    </p>
+
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'property_list' %}" class="btn btn-primary">
+            🏠 {% if language == 'ar' %}العودة للرئيسية{% else %}Go Home{% endif %}
+        </a>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="btn btn-secondary">
+            🔐 {% if language == 'ar' %}تسجيل الدخول{% else %}Login{% endif %}
+        </a>
+        {% endif %}
+    </div>
+
+    <div style="margin-top: 3rem; padding: 1.5rem; background: #fef3c7; border-radius: 12px; color: #92400e;">
+        <p>
+            {% if language == 'ar' %}
+            قد تحتاج إلى تسجيل الدخول أو استخدام حساب مختلف للوصول إلى هذه الصفحة.
+            {% else %}
+            You may need to log in or use a different account to access this page.
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    }
+</style>
+{% endblock %}

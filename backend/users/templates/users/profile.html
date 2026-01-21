@@ -1,0 +1,421 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - EstateHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .profile-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .profile-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        padding: 3rem 2rem 2rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .profile-image-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 1rem;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3.5rem;
+        font-weight: bold;
+    }
+
+    .image-upload-label {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background: var(--primary-color);
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+    }
+
+    .image-upload-label:hover {
+        background: var(--primary-dark);
+        transform: scale(1.1);
+    }
+
+    .image-upload-input {
+        display: none;
+    }
+
+    .profile-name {
+        color: white;
+        margin: 0.5rem 0;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .profile-badge {
+        display: inline-block;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-body {
+        padding: 2rem;
+    }
+
+    .form-section {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2d3748;
+        font-size: 0.95rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        background: white;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .info-box {
+        padding: 1.25rem;
+        background: white;
+        border-radius: 10px;
+        margin-top: 1rem;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .info-item {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .info-item strong {
+        color: #334155;
+        font-weight: 600;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 0.875rem 2rem;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+        background: #64748b;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #475569;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(100, 116, 139, 0.3);
+    }
+
+    .stats-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 3px solid #e2e8f0;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.3s;
+        border: 2px solid transparent;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: #64748b;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .error-message {
+        color: #ef4444;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+        .profile-header {
+            padding: 2rem 1rem 1.5rem;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+        }
+
+        .profile-body {
+            padding: 1.5rem;
+        }
+
+        .form-section {
+            padding: 1.5rem;
+        }
+
+        .btn-group {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-image-container">
+                {% if user.profile.profile_image %}
+                <img src="{{ user.profile.profile_image.url }}" alt="{{ user.username }}" class="profile-image">
+                {% else %}
+                <div class="profile-image">
+                    {{ user.username.0|upper }}
+                </div>
+                {% endif %}
+                <label for="id_profile_image" class="image-upload-label"
+                    title="{% if language == 'ar' %}تغيير الصورة{% else %}Change Photo{% endif %}">
+                    📷
+                </label>
+            </div>
+            <h2 class="profile-name">{{ user.username }}</h2>
+            <span class="profile-badge">
+                {{ user.profile.get_user_type_display }}
+            </span>
+        </div>
+
+        <div class="profile-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <span>👤</span>
+                        <span>{% if language == 'ar' %}معلومات الحساب{% else %}Account Information{% endif %}</span>
+                    </h3>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            {% if language == 'ar' %}اسم المستخدم{% else %}Username{% endif %}
+                        </label>
+                        <input type="text" name="username" value="{{ form.username.value|default:user.username }}"
+                            class="form-input" required>
+                        {% if form.username.errors %}
+                        <div class="error-message">{{ form.username.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            {% if language == 'ar' %}البريد الإلكتروني{% else %}Email{% endif %}
+                        </label>
+                        <input type="email" name="email" value="{{ form.email.value|default:user.email }}"
+                            class="form-input" required>
+                        {% if form.email.errors %}
+                        <div class="error-message">{{ form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            {% if language == 'ar' %}رقم الهاتف{% else %}Phone{% endif %}
+                        </label>
+                        <input type="text" name="phone" value="{{ form.phone.value|default:user.profile.phone }}"
+                            class="form-input" placeholder="+20 100 123 4567">
+                        {% if form.phone.errors %}
+                        <div class="error-message">{{ form.phone.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    {{ form.profile_image }}
+                    {% if form.profile_image.errors %}
+                    <div class="error-message">{{ form.profile_image.errors.0 }}</div>
+                    {% endif %}
+
+                    <div class="info-box">
+                        <div class="info-item">
+                            <strong>{% if language == 'ar' %}نوع الحساب{% else %}Account Type{% endif %}:</strong>
+                            {{ user.profile.get_user_type_display }}
+                        </div>
+                        <div class="info-item">
+                            <strong>{% if language == 'ar' %}عضو منذ{% else %}Member Since{% endif %}:</strong>
+                            {{ user.date_joined|date:"F Y" }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a href="{% url 'password_reset' %}" class="btn btn-secondary">
+                        <span>🔒</span>
+                        <span>{% if language == 'ar' %}تغيير كلمة المرور{% else %}Change Password{% endif %}</span>
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <span>💾</span>
+                        <span>{% if language == 'ar' %}حفظ التغييرات{% else %}Save Changes{% endif %}</span>
+                    </button>
+                </div>
+            </form>
+
+            {% if user.profile.user_type == 'seller' %}
+            <div class="stats-section">
+                <h3 class="section-title">
+                    <span>📊</span>
+                    <span>{% if language == 'ar' %}إحصائيات البائع{% else %}Seller Statistics{% endif %}</span>
+                </h3>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ user.properties.count }}</div>
+                        <div class="stat-label">
+                            {% if language == 'ar' %}إجمالي العقارات{% else %}Total Properties{% endif %}
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-number">{{ active_properties_count }}</div>
+                        <div class="stat-label">
+                            {% if language == 'ar' %}عقارات نشطة{% else %}Active Properties{% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{% url 'property_create' %}" class="btn btn-primary"
+                    style="width: 100%; justify-content: center;">
+                    <span>➕</span>
+                    <span>{% if language == 'ar' %}إضافة عقار جديد{% else %}Add New Property{% endif %}</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

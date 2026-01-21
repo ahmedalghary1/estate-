@@ -40,7 +40,7 @@ class UserProfileForm(forms.ModelForm):
     
     class Meta:
         model = UserProfile
-        fields = ['phone']
+        fields = ['phone', 'profile_image']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
